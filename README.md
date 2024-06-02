@@ -4,7 +4,7 @@
 
 Many AC powered NUCs do not have on-board power consumption monitoring capabilities. Scripts in this repo aim to deliver a solution in the form of a predictive model for the system-level power consumption, trained using the following features:
 
-* CPU socket average power consumption. The file /sys/class/powercap/intel-rapl/intel-rapl:0/energy_uj (found on Ubuntu systems using Intel CPUs that support RAPL) is read twice, each read separated by a second, and average power consumption over the one second interval is calculated as the difference between the two values.
+* CPU socket average power consumption. The file /sys/class/powercap/intel-rapl/intel-rapl:0/energy_uj (found on Ubuntu systems with Intel CPUs that support RAPL) is read twice, each read separated by a second, and average power consumption over the one second interval is calculated as the difference between the two values.
 * CPU load. Obtained using from the file /proc/loadavg, the model uses three stats: average load over one minute, five minutes and fifteen minutes.
 * CPU temp. Read using !TODO-update! thermal zone file.
 * RX and TX datarates per interface. Calculated by successive reads to /proc/net/dev one second apart, datarate is provided by comparing the values for transmitted bytes in each direction on each interface.
@@ -21,7 +21,7 @@ Deployment of the solution involves three stages:
 ### Data generation
 1. Interface loading. Interface loading is achieved by hosting an iperf server on the DUT, and running the script provided under /NUCmonitor/clientSide/monitoringTool_test.py on an alternative network device to create a range of iperf traffic, including duplex and parallel connections.
 2. CPU loading. CPU loading is achieved using the stress-ng tools for Linux systems.
-3. Recording. While either or both of the interface and CPU loading processes are underway. The DUT must monitor and record datapoints containing all above model features, as well as recording system-power consumption either using a PDU or by manual observation and entry using data available for a battery (current method).
+3. Recording. While either or both of the interface and CPU loading processes are underway. The DUT must monitor and record datapoints containing all above model features, as well as recording system-power consumption either using a PDU or by manual observation and entry using data available for a battery (current method). Features are calculated and saved using methods defined in the file NUCmonitor/dutSide/monitoringTool.py, specifically the function 'monitor()'. Also included in this library are individual methods for performing each of the required reads, and to output statistics as a json portable object.
 
 ### Modelling
 1. Model selection. Models should be as simple as possible, so that when they are deployed on the NUC they do not draw significant resources and are able to run as a low-intensity background service. The quantitative nature of the features would lend itself well to regression or a KNN classifier (although the use of a classifier will restricts the models output to power consumption that are present in the dataset, and would only be effective if the system power data is sufficiently low-res). A more complicated approach could employ a Linear Dynamical System, which is able to use sequential data to make predictions, but may be too complex to efficiently deploy on the NUC.

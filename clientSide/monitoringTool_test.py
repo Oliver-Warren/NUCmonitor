@@ -1,3 +1,4 @@
+import paramiko
 import subprocess
 import numpy as np
 import pytest
@@ -40,9 +41,23 @@ def iperfCmd(serverIP, dualtest=False, tradeoff=False, parallel=0, tos=0, udp=Fa
   print(" ".join(args))
   subprocess.run(args)
 
-# Opens an SSH connection to the NUC, then execute stress-ng
-def stressCmd(serverIP):
-  return
+# Opens an SSH connection to the NUC
+def connectSsh(serverIP, username, password):
+  client = paramiko.SSHClient()
+  client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+  client.connect(hostname=serverIP, username=username, password=password)
+  return client
+
+# Remotely invokes stress-ng on the NUC according to parameters
+def startStress(client, stress):
+  stdin, stdout, stderr = client.exec_command("stress-ng -c 0 -l " + str(stress))
+
+# Remotely kills all stress-ng processes on the NUC
+def stopStress(client):
+  stdin, stdout, stderr = client.exec_command("killall stress-ng")
+
+def closeSsh(client):
+  client.close()
 
 # iperf option parameters
 p_dualtest = [False, True]
@@ -73,13 +88,23 @@ def stress(request):
 
 # Servers IP address
 serverIP = "10.68.98.205"
+username = "ubuntu"
+password = "ubuntu"
 
 # Run tests
 def test(dualtest, tradeoff, parallel, tos, stress):
-  # SSH into NUC, start stress test
-  # start iperf
-  # iperf returns
-  # end stress test, close SSH to NUC
-
+  if stress:
+    client = connectSsh(serverIP, username, password)
+    startStress(client, stress)
   iperfCmd(serverIP, dualtest=dualtest, tradeoff=tradeoff, parallel=parallel, tos=tos)
+  if stress:
+    stopStress(client)
+    closeSsh(client)
   pass
+
+
+client = connectSsh(serverIP, username, password)
+startStress(client, 20)
+input("Proceed?")
+stopStress(client)
+closeSsh(client)

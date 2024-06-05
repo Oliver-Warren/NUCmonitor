@@ -24,7 +24,12 @@ def readCpuLoad():
 
 # Another way of finding INSTANTANEOUS cpu load is using /proc/stat
 def readCpuLoadII():
-  return
+  with open("/proc/stat") as file:
+    topLine = file.readline()
+    # output list: [user, nice, system, idle]
+    out = topLine.split()[1:5]
+    print(out)
+  return out
 
 def readIfStats():
   ifNames = []
@@ -88,3 +93,4 @@ def experiment(tests, trial):
     input("Proceed?")
 
 print(monitor())
+readCpuLoadII()

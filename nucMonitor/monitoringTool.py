@@ -12,7 +12,10 @@ def readCpuTemp():
 
 def readCpuLoad():
   with open("/proc/loadavg") as file:
-    return {"CPU load": float(file.read().split()[0])}
+    stats = file.read()
+    return {"CPU load (1min)": float(stats.split()[0]),
+	    "CPU load (5min)": float(stats.split()[1]),
+	    "CPU load (15min)": float(stats.split()[2])}
 
 def readIfStats():
   ifNames = []
@@ -74,3 +77,5 @@ def experiment(tests, trial):
     path = dirPath + "test" + str(i) + ".json"
     toJson(result, path)
     input("Proceed?")
+
+print(monitor())

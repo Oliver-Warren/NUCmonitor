@@ -101,10 +101,3 @@ def test(dualtest, tradeoff, parallel, tos, stress):
     stopStress(client)
     closeSsh(client)
   pass
-
-
-client = connectSsh(serverIP, username, password)
-startStress(client, 20)
-input("Proceed?")
-stopStress(client)
-closeSsh(client)

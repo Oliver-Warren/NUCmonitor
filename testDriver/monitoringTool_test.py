@@ -92,6 +92,10 @@ username = "ubuntu"
 password = "ubuntu"
 
 # Run tests
+# At the moment, a new client is initialised and a new SSH connection initiated for each test case
+# This is ihighly inefficient, instead initialise the SSH connection at the begin of the test.
+# This can be achieved wihtin the pytest framework using test config file
+# If this is implemented the config script can also invoke 'iperf -s -D' on the NUC, meaning all stimuli and driving for generating data is done on another device, and the NUC only has to record its data
 def test(dualtest, tradeoff, parallel, tos, stress):
   if stress:
     client = connectSsh(serverIP, username, password)

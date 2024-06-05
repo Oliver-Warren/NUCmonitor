@@ -10,12 +10,21 @@ def readCpuTemp():
   with open("/sys/class/thermal/thermal_zone0/temp", "r") as file:
     return {"CPU temp": float(file.read()) / 1000 }
 
+#
+# This recieves the average values over 1, 5 and 15 minutes and is not helpful for this case
+# The driving script only invokes stress-ng for times < 1min so there is little change to these stats
+# Hence these stats wont make good features for the model
+#
 def readCpuLoad():
   with open("/proc/loadavg") as file:
     stats = file.read()
     return {"CPU load (1min)": float(stats.split()[0]),
 	    "CPU load (5min)": float(stats.split()[1]),
 	    "CPU load (15min)": float(stats.split()[2])}
+
+# Another way of finding INSTANTANEOUS cpu load is using /proc/stat
+def readCpuLoadII():
+  return
 
 def readIfStats():
   ifNames = []

@@ -40,6 +40,10 @@ def iperfCmd(serverIP, dualtest=False, tradeoff=False, parallel=0, tos=0, udp=Fa
   print(" ".join(args))
   subprocess.run(args)
 
+# Opens an SSH connection to the NUC, then execute stress-ng
+def stressCmd(serverIP)
+  return
+
 # iperf option parameters
 p_dualtest = [False, True]
 p_tradeoff = [False, True]
@@ -63,10 +67,19 @@ def parallel(request):
 def tos(request):
   return request.param
 
+@pytest.fixture(params_p_stress)
+def stress(request)
+  return request.param
+
 # Servers IP address
 serverIP = "10.68.98.205"
 
 # Run tests
-def test(dualtest, tradeoff, parallel, tos):
+def test(dualtest, tradeoff, parallel, tos, stress):
+  # SSH into NUC, start stress test
+  # start iperf
+  # iperf returns
+  # end stress test, close SSH to NUC
+  
   iperfCmd(serverIP, dualtest=dualtest, tradeoff=tradeoff, parallel=parallel, tos=tos)
   pass

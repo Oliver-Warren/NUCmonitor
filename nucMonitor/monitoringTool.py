@@ -27,7 +27,7 @@ def readCpuLoadII():
   with open("/proc/stat") as file:
     topLine = file.readline()
     # output list: [user, nice, system, idle]
-    out = topLine.split()[1:5]
+    out = [int(x) for x in topLine.split()[1:5]]
     print(out)
   return out
 
@@ -44,6 +44,12 @@ def readIfStats():
 
 def calcCpuPower(e0, e1, t):
   return {"CPU power": ( e1 - e0 ) / ( t * 1000000 ) }
+
+def calcCpuLoadII(l0, l1):
+  print(l0)
+  print(l0[0:3])
+  print(sum(l0[0:3]))
+  return {"CPU load from /proc/stat": float( sum(l1[0:3]) - sum(l0[0:3]) ) / float( sum(l1) - sum(l0) ) }
 
 def calcIfDatarates(s0, s1, t):
   out = {}
@@ -92,5 +98,8 @@ def experiment(tests, trial):
     toJson(result, path)
     input("Proceed?")
 
-print(monitor())
-readCpuLoadII()
+# print(monitor())
+l0 = readCpuLoadII()
+time.sleep(1)
+l1 = readCpuLoadII()
+print(calcCpuLoadII(l0, l1))

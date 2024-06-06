@@ -1,0 +1,15 @@
+{
+    "CPU temp": 53.0,
+    "CPU load (/proc/loadavg)(1m)": 1.91,
+    "CPU load (/proc/loadavg)(5m)": 1.61,
+    "CPU load (/proc/loadavg)(15m)": 0.85,
+    "CPU load (/proc/stat)(1s)": 0.022792022792022793,
+    "CPU power": 3.086967,
+    "lo RX": 0.0,
+    "lo TX": 0.0,
+    "enp3s0 RX": 2180945.0,
+    "enp3s0 TX": 123139676.0,
+    "wlp2s0 RX": 0.0,
+    "wlp2s0 TX": 0.0,
+    "System power": 8.0
+}

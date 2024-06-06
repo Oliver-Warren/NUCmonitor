@@ -18,9 +18,9 @@ def readCpuTemp():
 def readCpuLoad():
   with open("/proc/loadavg") as file:
     stats = file.read()
-    return {"CPU load (1min)": float(stats.split()[0]),
-	    "CPU load (5min)": float(stats.split()[1]),
-	    "CPU load (15min)": float(stats.split()[2])}
+    return {"CPU load (/proc/loadavg)(1m)": float(stats.split()[0]),
+	    "CPU load (/proc/loadavg)(5m)": float(stats.split()[1]),
+	    "CPU load (/proc/loadavg)(15m)": float(stats.split()[2])}
 
 # Another way of finding INSTANTANEOUS cpu load is using /proc/stat
 def readCpuLoadII():
@@ -46,10 +46,7 @@ def calcCpuPower(e0, e1, t):
   return {"CPU power": ( e1 - e0 ) / ( t * 1000000 ) }
 
 def calcCpuLoadII(l0, l1):
-  print(l0)
-  print(l0[0:3])
-  print(sum(l0[0:3]))
-  return {"CPU load from /proc/stat": float( sum(l1[0:3]) - sum(l0[0:3]) ) / float( sum(l1) - sum(l0) ) }
+  return {"CPU load (/proc/stat)(1s)": float( sum(l1[0:3]) - sum(l0[0:3]) ) / float( sum(l1) - sum(l0) ) }
 
 def calcIfDatarates(s0, s1, t):
   out = {}
@@ -63,20 +60,24 @@ def monitor(interval=1.0):
   # first readings
   cpuEnergy0 = readCpuEnergy()
   ifStats0 = readIfStats()
+  cpuLoadII0 = readCpuLoadII()
   # sleep
   time.sleep(interval)
   # second readings
   cpuEnergy1 = readCpuEnergy()
   ifStats1 = readIfStats()
+  cpuLoadII1 = readCpuLoadII()
   cpuTemp = readCpuTemp()
   cpuLoad = readCpuLoad()
   # calculate
   cpuPower = calcCpuPower(cpuEnergy0, cpuEnergy1, interval)
   ifDatarates = calcIfDatarates(ifStats0, ifStats1, interval)
+  cpuLoadII = calcCpuLoadII(cpuLoadII0, cpuLoadII1)
   # append
   out = {}
   out.update(cpuTemp)
   out.update(cpuLoad)
+  out.update(cpuLoadII)
   out.update(cpuPower)
   out.update(ifDatarates)
   return out
@@ -98,8 +99,4 @@ def experiment(tests, trial):
     toJson(result, path)
     input("Proceed?")
 
-# print(monitor())
-l0 = readCpuLoadII()
-time.sleep(1)
-l1 = readCpuLoadII()
-print(calcCpuLoadII(l0, l1))
+print(monitor())

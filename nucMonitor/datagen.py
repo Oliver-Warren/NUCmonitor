@@ -2,11 +2,9 @@ from monitoringTool import *
 import os
 import subprocess
 
-def gen(testId):
-  print("Data generation for test ID:", testId)
-  dirPath = "/home/ubuntu/NUCmonitor/testData" + str(testId) + "/"
+def gen(dirPath):
+  print("Data generation for directory:", dirPath)
   os.makedirs(os.path.dirname(dirPath), exist_ok=True)
-  print("Data points will be stored as json at", dirPath)
   i = 0
   while True:
     stats = monitor()
@@ -16,4 +14,5 @@ def gen(testId):
     toJson(stats, fPath)
     i += 1
 
-gen(0)
+dirPath = "home/ubuntu/NUCmonitor/testdata0/"
+gen(dirPath)

@@ -28,7 +28,6 @@ def readCpuLoadII():
     topLine = file.readline()
     # output list: [user, nice, system, idle]
     out = [int(x) for x in topLine.split()[1:5]]
-    print(out)
   return out
 
 def readIfStats():
@@ -82,7 +81,7 @@ def monitor(interval=1.0):
   out.update(ifDatarates)
   return out
 
-def toJson(obj, path="/home/ubuntu/monitoringTool/test.json"):
+def toJson(obj, path="/home/ubuntu/NUCmonitor/nucMonitor/test.json"):
   jsonObj = json.dumps(obj, indent=4)
   with open(path, "w") as file:
     file.write(jsonObj)
@@ -99,4 +98,4 @@ def experiment(tests, trial):
     toJson(result, path)
     input("Proceed?")
 
-print(monitor())
+toJson(monitor())

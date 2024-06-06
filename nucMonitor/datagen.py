@@ -14,5 +14,5 @@ def gen(dirPath):
     toJson(stats, fPath)
     i += 1
 
-dirPath = "home/ubuntu/NUCmonitor/testdata0/"
+dirPath = "/home/ubuntu/NUCmonitor/testData0/"
 gen(dirPath)

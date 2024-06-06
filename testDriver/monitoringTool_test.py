@@ -63,7 +63,7 @@ def closeSsh(client):
 p_dualtest = [False, True]
 p_tradeoff = [False, True]
 p_parallel = [1, 4, 8, 12]
-p_tos = [0x02, 0x08, 0x10]
+p_tos = [0x08]
 p_stress = [0, 20, 40, 60, 80]
 
 @pytest.fixture(params=p_dualtest)

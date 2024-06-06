@@ -6,7 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from pathlib import Path
 
-pathLaptop = "/home/ojdwa/NUCmonitor/testData0"
+pathLaptop = "/home/ojdwa/NUCmonitor/data/realData0"
 pathNuc = "/home/ubuntu/NUCmonitor/testData0"
 
 # Create data set from the jsons output by monitoringtool

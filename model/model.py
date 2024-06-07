@@ -45,7 +45,7 @@ n_neighbors = 15
 
 
 # Train-test split
-seed = 20 # change to get other splits
+seed = 19 # change to get other splits
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
 
 # might want to change this to something non-linear
@@ -63,7 +63,7 @@ for seedP in range(200):
     continue
   else:
     # save predicted vs actuals as a csv for analysis
-    print("Seed:", seedP, "MSE:", mse, "Typical error:", np.sqrt(mse)) 
+    print("Seed:", seedP, "MSE:", mse, "Typical error:", np.sqrt(mse))
     continue
 
 

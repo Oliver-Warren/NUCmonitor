@@ -44,16 +44,16 @@ y = getTargets(data)
 n_neighbors = 15
 
 
-# Train-test split
-seed = 19 # change to get other splits
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
+# Train-test split, now moved into seed loop
+# seed = 5 # change to get other splits
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed)
 
 # might want to change this to something non-linear
 for seedP in range(200):
 
   # model parameters:
   # criterion - friedman_mse worked well
-
+  X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seedP)
 
   model = DecisionTreeRegressor(ccp_alpha=1, random_state=seedP, criterion="friedman_mse", splitter="random")
   model.fit(X_train, y_train)
@@ -66,17 +66,17 @@ for seedP in range(200):
     print("Seed:", seedP, "MSE:", mse, "Typical error:", np.sqrt(mse))
     continue
 
-
-#model = DecisionTreeRegressor(random_state=seed, criterion="friedman_mse", splitter="random")
-#model.fit(X_train, y_train)
+print("\nKNN\n")
+model2 = KNeighborsRegressor(n_neighbors=n_neighbors, weights="distance")
+model2.fit(X_train, y_train)
 
 # test
-#y_pred = model.predict(X_test)
-#print("Targets:\n", y_test[:5])
-#print("Predicted:", y_pred[:5])
+y_predK = model2.predict(X_test)
+print("Targets:\n", y_test[:5])
+print("Predicted:", y_predK[:5])
 
-#mse = mean_squared_error(y_test, y_pred)
-#print("MSE:", mse)
+mseK = mean_squared_error(y_test, y_predK)
+print("MSE:", mse)
 
 
 

@@ -1,17 +1,21 @@
 import paramiko
 
-def connectToPDU(pduIP, username, password):
-  client = paramiko.SSHClient()
-  client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-  client.connect(hostname=pduIP, username=username, password=password)
-  return client
+class PDU:
 
-def getOutletPower(client, outlet):
-  stdin, stdout, stderr = client.exec_command("olReading " + str(outlet) + " power")
-  return stdout.readline()
+  def __init__(self, pduIP, username, password):
+    self.pduIP = pduIP
+    self.username = username
 
-def closePDU(client):
-  client.close()
+    self.client = paramiko.SSHClient()
+    self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    self.client.connect(hostname=pduIP, username=username, password=password)
+
+  def getOutletPower(outlet):
+    _, stdout, _ = self.client.exec_command("olReading " + str(outlet) + " power")
+    return stdout.readline()
+
+  def close():
+    self.client.close()
 
 pduIP = "10.68.17.123"
 username = "apc"
@@ -19,6 +23,6 @@ password = "apc"
 
 outlet = "6"
 
-pdu = connectToPDU(pduIP, username, password)
-print(getOutletPower(pdu, outlet))
-closePDU(pdu)
+pdu = PDU(pduIP, username, password)
+print(pdu.getOutletPower(outlet))
+close()

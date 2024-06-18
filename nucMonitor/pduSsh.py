@@ -17,7 +17,7 @@ class PDU:
   def close():
     self.client.close()
 
-pduIP = "10.68.17.123"
+pduIP = "8.8.8.8"
 username = "apc"
 password = "apc"
 
@@ -25,4 +25,4 @@ outlet = "6"
 
 pdu = PDU(pduIP, username, password)
 print(pdu.getOutletPower(outlet))
-close()
+pdu.close()

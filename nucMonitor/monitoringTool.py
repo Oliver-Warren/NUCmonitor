@@ -2,6 +2,10 @@ import time
 import json
 import os
 
+def getPowerReading():
+  # ssh into the pdu, and retrieve power consumption for outlet 6 (NUC outlet)
+  # use paramiko?
+
 def readCpuEnergy():
   with open("/sys/class/powercap/intel-rapl/intel-rapl:0/energy_uj", "r") as file:
     return float(file.read())

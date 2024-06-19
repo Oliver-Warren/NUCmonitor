@@ -1,17 +1,24 @@
 import paramiko
+import time
 
 class PDU:
 
-  def __init__(self, pduIP, username, password):
-    self.pduIP = pduIP
+  def __init__(self, pduIP, username, password, outlet):
+    self.hostname = pduIP
     self.username = username
-    self.client = paramiko.SSHClient()
-    self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    self.client.connect(hostname=pduIP, username=username, password=password, banner_timeout=5)
+    self.password = password
+    self.outlet = outlet
 
+  # currently starts new SSH session for each read, inefficient try to fix
   def getOutletPower(self, outlet):
-    _, stdout, _ = self.client.exec_command("olReading " + str(outlet) + " power")
+    client = paramiko.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(hostname=self.hostname, username=self.username, password=self.password)
+    _, stdout, _ = client.exec_command("olReading " + self.outlet + " power")
     return stdout.readline()
 
-  def close(self):
-    self.client.close()
+pdu = PDU("10.68.17.123", "apc", "apc", "6")
+print(pdu.getOutletPower("6"))
+print(pdu.getOutletPower("7"))
+
+

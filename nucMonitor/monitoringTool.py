@@ -12,10 +12,7 @@ class NUCmonitor:
     self.pduOl = pduOl
 
   def readPduPower(self):
-    return PDU(self.pduIP, self.pduUn, self.pduPw, self.pduOl).getOutletPower()
-
-  def closePdu(self):
-    self.pdu.close()
+    return {"PDU power": PDU(self.pduIP, self.pduUn, self.pduPw, self.pduOl).getOutletPower()}
 
   @staticmethod
   def readCpuEnergy():
@@ -100,6 +97,7 @@ class NUCmonitor:
     out.update(cpuLoadII)
     out.update(cpuPower)
     out.update(ifDatarates)
+    out.update(pduPower)
     return out
 
   @staticmethod
@@ -109,5 +107,5 @@ class NUCmonitor:
       file.write(jsonObj)
 
 # toJson(monitor())
-nucMonitor = NUCmonitor("10.68.17.123", "apc", "apc", "6")
-print(nucMonitor.readPduPower())
+# nucMonitor = NUCmonitor("10.68.17.123", "apc", "apc", "6")
+# print(nucMonitor.monitor())

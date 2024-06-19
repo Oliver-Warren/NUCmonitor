@@ -5,16 +5,14 @@ from PDU import PDU
 
 class NUCmonitor:
 
-  def __init__(self):
-    pass
-
-  def connectToPdu(self, pduIP, pduUsername, pduPassword, pduOutlet):
-    self.pdu = PDU(pduIP, pduUsername, pduPassword)
-    self.pduOutlet = pduOutlet
+  def __init__(self, pduIP, pduUn, pduPw, pduOl):
+    self.pduIP = pduIP
+    self.pduUn = pduUn
+    self.pduPw = pduPw
+    self.pduOl = pduOl
 
   def readPduPower(self):
-    pduResponse = self.pdu.getOutletPower(self.pduOutlet)
-    return float(pduResponse.split()[3])
+    return PDU(self.pduIP, self.pduUn, self.pduPw, self.pduOl).getOutletPower()
 
   def closePdu(self):
     self.pdu.close()
@@ -110,22 +108,6 @@ class NUCmonitor:
     with open(path, "w") as file:
       file.write(jsonObj)
 
-  @staticmethod
-  def experiment(tests, trial):
-    dirPath = "/home/ubuntu/monitoringTool/trial" + str(trial) + "/"
-    os.makedirs(os.path.dirname(dirPath), exist_ok=True)
-    for i in range(tests):
-      result = monitor()
-      print("TRIAL", trial, "Test", i)
-      result.update({"System power": input("System power for test" + str(i) + ": ")})
-      print(result)
-      path = dirPath + "test" + str(i) + ".json"
-      toJson(result, path)
-      input("Proceed?")
-
 # toJson(monitor())
-nucMonitor = NUCmonitor()
-nucMonitor.connectToPdu("10.68.17.123", "apc", "apc", "6")
+nucMonitor = NUCmonitor("10.68.17.123", "apc", "apc", "6")
 print(nucMonitor.readPduPower())
-print(nucMonitor.monitor())
-nucMonitor.closePdu()

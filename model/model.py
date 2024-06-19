@@ -18,7 +18,7 @@ pathNuc = "/home/ubuntu/NUCmonitor/data"
 # Create data set from the jsons output by monitoringtool
 def loadData(path):
   pathObj = Path(path)
-  return pd.DataFrame([pd.read_json(p, typ="series") for p in pathObj.iterdir()]).drop(["CPU load (/proc/loadavg)(1m)", "CPU load (/proc/loadavg)(5m)", "CPU load (/proc/loadavg)(15m)", "lo TX", "lo RX", "wlp2s0 TX", "wlp2s0 RX"], axis=1)
+  return pd.DataFrame([pd.read_json(p, typ="series") for p in pathObj.iterdir()])
 
 # Return targets (system power consumption)
 def getTargets(data):
@@ -26,7 +26,7 @@ def getTargets(data):
 
 # Return features (dataset - targets)
 def getFeatures(data):
-  return data.drop(["System power"], axis=1)
+  return data.drop(["PDU power"], axis=1)
 
 # Load jsons into df
 data = loadData(pathLaptop)

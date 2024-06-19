@@ -1,21 +1,19 @@
 import json
 import numpy as np
 import pandas as pd
+
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-
 from sklearn.neural_network import MLPRegressor
-
 from sklearn.neighbors import KNeighborsRegressor
-
 from sklearn.tree import DecisionTreeRegressor
-
 from sklearn.linear_model import Lasso
 from sklearn.metrics import mean_squared_error
+
 from pathlib import Path
 
-pathLaptop = "/home/ojdwa/NUCmonitor/data/realData0"
-pathNuc = "/home/ubuntu/NUCmonitor/testData0"
+pathLaptop = "/home/ojdwa/NUCmonitor/data/"
+pathNuc = "/home/ubuntu/NUCmonitor/data"
 
 # Create data set from the jsons output by monitoringtool
 def loadData(path):
@@ -24,7 +22,7 @@ def loadData(path):
 
 # Return targets (system power consumption)
 def getTargets(data):
-  return data["System power"]
+  return data["PDU power"]
 
 # Return features (dataset - targets)
 def getFeatures(data):

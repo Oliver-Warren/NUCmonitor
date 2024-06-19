@@ -33,7 +33,7 @@ class NUCmonitor:
 	      "CPU load (/proc/loadavg)(5m)": float(stats.split()[1]),
 	      "CPU load (/proc/loadavg)(15m)": float(stats.split()[2])}
 
-  # Used as a features, instantaneous load
+  # Used as a feature, instantaneous load
   @staticmethod
   def readCpuLoadII():
     with open("/proc/stat") as file:

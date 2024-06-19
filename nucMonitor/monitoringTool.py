@@ -6,12 +6,13 @@ from pduSsh import PDU
 class NUCmonitor:
 
   def __init__(self):
+    pass
 
   def connectToPdu(self, pduIP, pduUsername, pduPassword):
     self.pdu = PDU(pduIP, pduUsername, pduPassword)
 
-  def readPduPower(self):
-    pduResponse = self.pdu.getOutletPower(self.pduOutlet)
+  def readPduPower(self, pduOutlet):
+    pduResponse = self.pdu.getOutletPower(pduOutlet)
     return float(pduResponse.split()[3])
 
   def closePdu(self):
@@ -121,8 +122,8 @@ class NUCmonitor:
       input("Proceed?")
 
 # toJson(monitor())
-nucMonitor = NUCmonitor(pduIP="10.68.17.123", pduUsername="apc", pduPassword="apc", pduOutlet="6")
+nucMonitor = NUCmonitor()
 # print(nucMonitor.monitor(1))
-nucMonitor.connectToPdu()
-print(nucMonitor.readPduPower())
+nucMonitor.connectToPdu("10.68.17.123", "apc", "apc")
+print(nucMonitor.readPduPower("6"))
 nucMonitor.closePdu()

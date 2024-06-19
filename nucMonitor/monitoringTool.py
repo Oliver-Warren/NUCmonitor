@@ -1,18 +1,19 @@
 import time
 import json
 import os
-from pduSsh import PDU
+from PDU import PDU
 
 class NUCmonitor:
 
   def __init__(self):
     pass
 
-  def connectToPdu(self, pduIP, pduUsername, pduPassword):
+  def connectToPdu(self, pduIP, pduUsername, pduPassword, pduOutlet):
     self.pdu = PDU(pduIP, pduUsername, pduPassword)
+    self.pduOutlet = pduOutlet
 
-  def readPduPower(self, pduOutlet):
-    pduResponse = self.pdu.getOutletPower(pduOutlet)
+  def readPduPower(self):
+    pduResponse = self.pdu.getOutletPower(self.pduOutlet)
     return float(pduResponse.split()[3])
 
   def closePdu(self):
@@ -75,30 +76,31 @@ class NUCmonitor:
     return out
 
   # all time restrained operations in here to keep reporting interval close to intended
-  @staticmethod
-  def monitor(interval=1.0):
+  def monitor(self, interval=1.0):
     # first readings
-    # cpuEnergy0 = NUCmonitor.readCpuEnergy()
-    ifStats0 = NUCmonitor.readIfStats()
-    cpuLoadII0 = NUCmonitor.readCpuLoadII()
+    cpuEnergy0 = self.readCpuEnergy()
+    ifStats0 = self.readIfStats()
+    cpuLoadII0 = self.readCpuLoadII()
     # sleep
     time.sleep(interval)
     # second readings
-    # cpuEnergy1 = NUCmonitor.readCpuEnergy()
-    ifStats1 = NUCmonitor.readIfStats()
-    cpuLoadII1 = NUCmonitor.readCpuLoadII()
-    # cpuTemp = NUCmonitor.readCpuTemp()
-    # cpuLoad = NUCmonitor.readCpuLoad()
+    cpuEnergy1 = self.readCpuEnergy()
+    ifStats1 = self.readIfStats()
+    cpuLoadII1 = self.readCpuLoadII()
+    # non-timed readings
+    pduPower = self.readPduPower()
+    cpuTemp = self.readCpuTemp()
+    ### NOT USED cpuLoad = NUCmonitor.readCpuLoad()
     # calculate
-    # cpuPower = NUCmonitor.calcCpuPower(cpuEnergy0, cpuEnergy1, interval)
-    ifDatarates = NUCmonitor.calcIfDatarates(ifStats0, ifStats1, interval)
-    cpuLoadII = NUCmonitor.calcCpuLoadII(cpuLoadII0, cpuLoadII1)
+    cpuPower = self.calcCpuPower(cpuEnergy0, cpuEnergy1, interval)
+    ifDatarates = self.calcIfDatarates(ifStats0, ifStats1, interval)
+    cpuLoadII = self.calcCpuLoadII(cpuLoadII0, cpuLoadII1)
     # append
     out = {}
-    # out.update(cpuTemp)
-    ## out.update(cpuLoad)
+    out.update(cpuTemp)
+    ### NOT USED out.update(cpuLoad)
     out.update(cpuLoadII)
-    # out.update(cpuPower)
+    out.update(cpuPower)
     out.update(ifDatarates)
     return out
 
@@ -123,7 +125,7 @@ class NUCmonitor:
 
 # toJson(monitor())
 nucMonitor = NUCmonitor()
-# print(nucMonitor.monitor(1))
-nucMonitor.connectToPdu("10.68.17.123", "apc", "apc")
-print(nucMonitor.readPduPower("6"))
+nucMonitor.connectToPdu("10.68.17.123", "apc", "apc", "6")
+print(nucMonitor.readPduPower())
+print(nucMonitor.monitor())
 nucMonitor.closePdu()

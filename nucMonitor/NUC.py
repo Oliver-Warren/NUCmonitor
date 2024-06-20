@@ -1,7 +1,7 @@
 import time
 import json
 import os
-from PDU import PDU
+from PDU import *
 
 NUC_IP = "10.68.17.50"
 NUC_UN = "ubuntu"

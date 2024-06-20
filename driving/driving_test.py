@@ -3,7 +3,6 @@ import subprocess
 import pytest
 
 from NUCmonitor.monitoring.NUC import NUC_IP, NUC_UN, NUC_PW
-from NUCmonitor.monitoring.PDU import PDU
 
 #
 # testpy script automating the generation of client-side iperf traffic.

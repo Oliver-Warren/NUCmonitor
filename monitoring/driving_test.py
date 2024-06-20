@@ -2,7 +2,9 @@ import paramiko
 import subprocess
 import pytest
 
-from NUC import NUC_IP, NUC_UN, NUC_PW
+NUC_IP = "10.68.17.50"
+NUC_UN = "ubuntu"
+NUC_PW = "ubuntu"
 
 #
 # testpy script automating the generation of client-side iperf traffic.

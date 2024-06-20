@@ -1,5 +1,4 @@
 from NUC import NUC
-from PDU import PDU_IP, PDU_UN, PDU_PW, PDU_OL
 import os
 
 OUTPATH = "/home/ubuntu/NUCmonitor/data/"
@@ -13,6 +12,7 @@ def gen(dirPath):
     stats = nuc.monitor()
     fPath = dirPath + str(i) + ".json"
     nuc.toJson(stats, dirPath + str(i) + ".json")
+    print("Saved:", i)
     i += 1
 
 gen(OUTPATH)

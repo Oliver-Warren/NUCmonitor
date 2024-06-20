@@ -15,8 +15,6 @@ def gen(dirPath, pduIP, pduUn, pduPw, pduOl):
     stats = nucMonitor.monitor()
     fPath = dirPath + str(i) + ".json"
     nucMonitor.toJson(stats, dirPath + str(i) + ".json")
-    if i % 10 == 0:
-      print(stats)
     i += 1
 
 dirPath = "/home/ubuntu/NUCmonitor/data/"

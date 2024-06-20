@@ -1,4 +1,4 @@
-from monitoringTool import NUCmonitor
+from NUCmonitor.nucMonitor.NUC import NUCmonitor
 import os
 
 # not currently used

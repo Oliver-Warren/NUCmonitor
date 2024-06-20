@@ -1,5 +1,10 @@
 import paramiko
 
+PDU_IP = "10.68.17.123"
+PDU_UN = "apc"
+PDU_PW = "apc"
+PDU_OL = "6"
+
 class PDU:
 
   def __init__(self, pduIP, username, password, outlet):

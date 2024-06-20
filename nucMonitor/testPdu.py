@@ -1,5 +1,5 @@
-from pduSsh import PDU
+from PDU import *
 
-pdu = PDU("10.68.17.123", "apc", "apc")
-print(pdu.getOutletPower(6))
+pdu = PDU(PDU_IP, PDU_UN, PDU_PW)
+print(pdu.getOutletPower(PDU_OL))
 pdu.close()

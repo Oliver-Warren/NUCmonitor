@@ -39,7 +39,7 @@ def iperfCmd(serverIP, dualtest=False, tradeoff=False, parallel=0, tos=0, udp=Fa
     args.append("-l")
     args.append(str(length))
   print(" ".join(args))
-  subprocess.run(args)
+  subprocess.run(args, shell=True)
 
 # Opens an SSH connection to the NUC
 def driveStress(serverIP, username, password, stress):
@@ -88,7 +88,7 @@ def tos(request):
 def stress(request):
   return request.param
 
-# Servers IP address
+# Servers IP address and credentials
 serverIP = "10.68.17.50"
 username = "ubuntu"
 password = "ubuntu"
@@ -102,7 +102,6 @@ def test(dualtest, tradeoff, parallel, tos, stress):
   if stress:
     driveStress(serverIP, username, password, stress)
   iperfCmd(serverIP, dualtest=dualtest, tradeoff=tradeoff, parallel=parallel, tos=tos)
-  if stress:
-    stopStress(client)
-    closeSsh(client)
   pass
+
+test(False, False, 1, 0x08, 20)

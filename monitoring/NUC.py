@@ -1,6 +1,6 @@
 import time
 import json
-from PDU import PDU
+from NUCmonitor.monitoring.PDU import PDU
 
 NUC_IP = "10.68.17.50"
 NUC_UN = "ubuntu"

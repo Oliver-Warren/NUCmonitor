@@ -39,7 +39,7 @@ def iperfCmd(serverIP, dualtest=False, tradeoff=False, parallel=0, tos=0, udp=Fa
     args.append("-l")
     args.append(str(length))
   print(" ".join(args))
-  subprocess.run(args, shell=True)
+  subprocess.run(args)
 
 # Opens an SSH connection to the NUC
 def driveStress(serverIP, username, password, stress):

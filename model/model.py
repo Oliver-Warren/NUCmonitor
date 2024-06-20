@@ -12,7 +12,8 @@ from sklearn.metrics import mean_squared_error
 
 from pathlib import Path
 
-pathLaptop = "/home/ojdwa/NUCmonitor/data/"
+pathLaptopUbuntu = "/home/ojdwa/NUCmonitor/data/"
+pathLaptopVS = "NUCmonitor\data"
 pathNuc = "/home/ubuntu/NUCmonitor/data"
 
 # Create data set from the jsons output by monitoringtool
@@ -29,7 +30,7 @@ def getFeatures(data):
   return data.drop(["PDU power"], axis=1)
 
 # Load jsons into df
-data = loadData(pathLaptop)
+data = loadData(pathLaptopVS)
 print(data.head())
 
 # Separate

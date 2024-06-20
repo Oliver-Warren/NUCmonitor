@@ -47,16 +47,12 @@ def driveStress(serverIP, username, password, stress):
   client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
   client.connect(hostname=serverIP, username=username, password=password)
   client.exec_command("stress-ng -c 0 -l " + str(stress))
-  client.exec_command("killall stress-ng")
-  client.close()
-
-# Remotely invokes stress-ng on the NUC according to parameters
-def startStress(client, stress):
-  stdin, stdout, stderr = client.exec_command("stress-ng -c 0 -l " + str(stress))
+  return client
 
 # Remotely kills all stress-ng processes on the NUC
 def stopStress(client):
-  stdin, stdout, stderr = client.exec_command("killall stress-ng")
+  client.exec_command("killall stress-ng")
+  client.close()
 
 def closeSsh(client):
   client.close()
@@ -100,8 +96,10 @@ password = "ubuntu"
 # If this is implemented the config script can also invoke 'iperf -s -D' on the NUC, meaning all stimuli and driving for generating data is done on another device, and the NUC only has to record its data
 def test(dualtest, tradeoff, parallel, tos, stress):
   if stress:
-    driveStress(serverIP, username, password, stress)
+    nucClient = driveStress(serverIP, username, password, stress)
   iperfCmd(serverIP, dualtest=dualtest, tradeoff=tradeoff, parallel=parallel, tos=tos)
+  if stress:
+    stopStress(nucClient)
   pass
 
 test(False, False, 1, 0x08, 20)

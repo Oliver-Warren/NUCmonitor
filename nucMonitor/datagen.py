@@ -1,5 +1,5 @@
-from NUCmonitor.nucMonitor.NUC import NUC
-from NUCmonitor.nucMonitor.PDU import PDU_IP, PDU_UN, PDU_PW, PDU_OL
+from NUC import NUC
+from PDU import PDU_IP, PDU_UN, PDU_PW, PDU_OL
 import os
 
 OUTPATH = "/home/ubuntu/NUCmonitor/data/"

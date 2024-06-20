@@ -1,4 +1,4 @@
-from NUCmonitor.nucMonitor.NUC import NUC
+from NUC import NUC
 import time
 
 # Periodically reports NUC stats

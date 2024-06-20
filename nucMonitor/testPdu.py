@@ -1,5 +1,4 @@
-from PDU import *
+from PDU import PDU
 
 pdu = PDU()
 print(pdu.getOutletPower())
-pdu.close()

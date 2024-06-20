@@ -1,11 +1,11 @@
-from NUCmonitor.nucMonitor.NUC import NUCmonitor
+from NUCmonitor.nucMonitor.NUC import NUC
 import time
 
-# Periodically reports stats gathered by monitoring tool
-def report():
-  nucMonitor = NUCmonitor("10.68.17.123", "apc", "apc", "6")
+# Periodically reports NUC stats
+def report(interval=1.0):
+  nuc = NUC()
   while True:
-    print(nucMonitor.monitor())
-    time.sleep(1)
+    print(nuc.monitor())
+    time.sleep(interval)
 
 report()

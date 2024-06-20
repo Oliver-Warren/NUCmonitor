@@ -7,7 +7,7 @@ PDU_OL = "6"
 
 class PDU:
 
-  def __init__(self, pduIP, username, password, outlet):
+  def __init__(self, pduIP=PDU_IP, username=PDU_UN, password=PDU_PW, outlet=PDU_OL):
     self.hostname = pduIP
     self.username = username
     self.password = password

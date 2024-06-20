@@ -1,22 +1,21 @@
 import time
 import json
-import os
-from PDU import *
+from PDU import PDU
 
 NUC_IP = "10.68.17.50"
 NUC_UN = "ubuntu"
 NUC_PW = "ubuntu"
 
-class NUCmonitor:
+TESTPATH = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
 
-  def __init__(self, pduIP, pduUn, pduPw, pduOl):
-    self.pduIP = pduIP
-    self.pduUn = pduUn
-    self.pduPw = pduPw
-    self.pduOl = pduOl
+class NUC:
 
-  def readPduPower(self):
-    return {"PDU power": PDU(self.pduIP, self.pduUn, self.pduPw, self.pduOl).getOutletPower()}
+  def __init__(self):
+    pass
+
+  @staticmethod
+  def readPduPower():
+    return {"PDU power": PDU().getOutletPower()}
 
   @staticmethod
   def readCpuEnergy():
@@ -105,11 +104,8 @@ class NUCmonitor:
     return out
 
   @staticmethod
-  def toJson(obj, path="/home/ubuntu/NUCmonitor/nucMonitor/test.json"):
+  def toJson(obj, path=TESTPATH):
     jsonObj = json.dumps(obj, indent=4)
     with open(path, "w") as file:
       file.write(jsonObj)
 
-# toJson(monitor())
-# nucMonitor = NUCmonitor("10.68.17.123", "apc", "apc", "6")
-# print(nucMonitor.monitor())

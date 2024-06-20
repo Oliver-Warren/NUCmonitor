@@ -3,6 +3,8 @@ import subprocess
 import numpy as np
 import pytest
 
+from NUCmonitor.nucMonitor.NUC import NUC_IP, NUC_UN, NUC_PW
+
 #
 # testpy script automating the generation of client-side iperf traffic.
 # Runs successive iperf -c commands with different options, covering cartesian product of p_option s
@@ -84,11 +86,6 @@ def tos(request):
 def stress(request):
   return request.param
 
-# Servers IP address and credentials
-serverIP = "10.68.17.50"
-username = "ubuntu"
-password = "ubuntu"
-
 # Run tests
 # At the moment, a new client is initialised and a new SSH connection initiated for each test case
 # This is ihighly inefficient, instead initialise the SSH connection at the begin of the test.
@@ -96,8 +93,8 @@ password = "ubuntu"
 # If this is implemented the config script can also invoke 'iperf -s -D' on the NUC, meaning all stimuli and driving for generating data is done on another device, and the NUC only has to record its data
 def test(dualtest, tradeoff, parallel, tos, stress):
   if stress:
-    nucClient = driveStress(serverIP, username, password, stress)
-  iperfCmd(serverIP, dualtest=dualtest, tradeoff=tradeoff, parallel=parallel, tos=tos)
+    nucClient = driveStress(NUC_IP, NUC_UN, NUC_PW, stress)
+  iperfCmd(NUC_IP, dualtest=dualtest, tradeoff=tradeoff, parallel=parallel, tos=tos)
   if stress:
     stopStress(nucClient)
   pass

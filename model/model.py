@@ -37,7 +37,7 @@ y = getTargets(data)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=splitseed)
 
 # models
-models = { "Poisson Tree      "  : DecisionTreeRegressor(ccp_alpha=1, criterion=["poisson"], splitter="best"),
+models = { "Poisson Tree      "  : DecisionTreeRegressor(ccp_alpha=1, criterion="poisson", splitter="best"),
            "Friedman Tree     "  : DecisionTreeRegressor(ccp_alpha=1, criterion="friedman_mse", splitter="best"),
            "MLP Regressor     "  : MLPRegressor(hidden_layer_sizes=[5, 10 ,5], activation="logistic", learning_rate="adaptive", early_stopping=True),
            "Kernel Ridge      "  : KernelRidge(alpha=0.8, kernel="linear"),

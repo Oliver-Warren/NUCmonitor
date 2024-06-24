@@ -44,7 +44,7 @@ models = { "Poisson Tree      "  : DecisionTreeRegressor(ccp_alpha=1, criterion=
            "Linear Regression "  : LinearRegression(),
            "Random Forest     "  : RandomForestRegressor(),
            "KNN               "  : KNeighborsRegressor(n_neighbors=n_neighbors, weights="distance") }
-for name, model in models.items:
+for name, model in models.items():
   print(name)
   model.fit(X_train, y_train)
   y_pred = model.predict(X_test)

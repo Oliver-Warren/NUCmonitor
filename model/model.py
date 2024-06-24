@@ -30,7 +30,7 @@ def getFeatures(data):
   return data.drop(["PDU power"], axis=1)
 
 # Get data
-data = loadData(pathLaptopVS)
+data = loadData(pathLaptopUbuntu)
 print(data.head())
 X = getFeatures(data)
 y = getTargets(data)

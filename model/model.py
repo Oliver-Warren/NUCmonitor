@@ -27,7 +27,8 @@ def getTargets(data):
   return data["PDU power"]
 
 def getFeatures(data):
-  return data.drop(["PDU power"], axis=1)
+  return data.drop(["PDU power", "lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"], axis=1)
+  
 
 # Get data
 data = loadData(pathLaptopUbuntu)

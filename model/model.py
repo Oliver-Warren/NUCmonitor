@@ -49,6 +49,6 @@ for name, model in models.items():
   y_pred = model.predict(X_test)
   mse = mean_squared_error(y_test, y_pred)
   if mse < 1:
-    print("Predictions:", y_pred.head())
+    print("Predictions:", y_pred[1:5])
     print("Actuals    :", y_test.head())
   print("MSE:", mse, "\n")

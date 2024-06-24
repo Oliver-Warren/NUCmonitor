@@ -38,7 +38,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # models
 models = { "Friedman Tree     "  : DecisionTreeRegressor(ccp_alpha=1, criterion="friedman_mse", splitter="best"),
-           "MLP Regressor     "  : MLPRegressor(hidden_layer_sizes=[5, 10 ,5], activation="logistic", learning_rate="adaptive", early_stopping=True),
+           "MLP Regressor     "  : MLPRegressor(hidden_layer_sizes=[100], activation="logistic", learning_rate="adaptive", early_stopping=True),
            "Kernel Ridge      "  : KernelRidge(alpha=0.8),
            "Linear Regression "  : LinearRegression(),
            "Random Forest     "  : RandomForestRegressor(),

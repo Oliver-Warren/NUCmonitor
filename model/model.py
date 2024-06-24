@@ -30,7 +30,7 @@ def getFeatures(data):
   return data.drop(["PDU power"], axis=1)
 
 # Load jsons into df
-data = loadData(pathLaptopVS)
+data = loadData(pathLaptopUbuntu)
 print(data.head())
 
 # Separate

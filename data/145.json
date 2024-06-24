@@ -1,12 +1,12 @@
 {
-    "CPU temp": 63.0,
-    "CPU load (/proc/stat)(1s)": 0.8247978436657682,
-    "CPU power": 8.012614,
+    "CPU temp": 57.0,
+    "CPU load (/proc/stat)(1s)": 0.018518518518518517,
+    "CPU power": 2.485528,
     "lo RX": 0.0,
     "lo TX": 0.0,
-    "enp3s0 RX": 122420689.0,
-    "enp3s0 TX": 106696.0,
+    "enp3s0 RX": 122437492.0,
+    "enp3s0 TX": 108294.0,
     "wlp2s0 RX": 0.0,
     "wlp2s0 TX": 0.0,
-    "PDU power": 11.0
+    "PDU power": 7.0
 }

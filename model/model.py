@@ -16,7 +16,7 @@ pathLaptopVS = "NUCmonitor\data"
 pathNuc = "/home/ubuntu/NUCmonitor/data"
 
 # model parameters
-n_neighbors = 4
+n_neighbors = 20
 splitseed = 42
 
 def loadData(path):
@@ -32,8 +32,8 @@ def getFeatures(data):
 
 # Get data
 data = loadData(pathLaptopUbuntu)
-print(data.head())
 X = getFeatures(data)
+print(X.head())
 y = getTargets(data)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=splitseed)
 

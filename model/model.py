@@ -9,7 +9,6 @@ from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import mean_squared_error
 from pathlib import Path
 from skl2onnx import to_onnx
-import onnxruntime as rt
 
 # paths to data
 pathLaptopUbuntu = "/home/ojdwa/NUCmonitor/data/"

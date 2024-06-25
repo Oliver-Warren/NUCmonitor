@@ -4,10 +4,12 @@ from PDU import PDU
 from pickle import load
 from sklearn.linear_model import LinearRegression
 import numpy as np
+import warnings
 
 TESTPATH  = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
 MODELPATH = "/home/ubuntu/NUCmonitor/model/linReg.pkl"
 
+warnings.simplefilter("ignore")
 class NUC:
 
   def __init__(self, modelOn=False):
@@ -102,7 +104,6 @@ class NUC:
     out.update(cpuPower)
     out.update(ifDatarates)
     out.update(pduPower)
-
     # model 
     try:
       predPower = self.predictPower(out.copy())
@@ -134,6 +135,6 @@ class NUC:
     with open(path, "w") as file:
       file.write(jsonObj)
 
-nuc = NUC(modelOn=True)
-print(nuc.monitor())
+# nuc = NUC(modelOn=True)
+# print(nuc.monitor())
 

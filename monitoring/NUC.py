@@ -101,6 +101,13 @@ class NUC:
     out.update(cpuPower)
     out.update(ifDatarates)
     out.update(pduPower)
+
+    # model 
+    try:
+      predPower = self.predictPower(out)
+      out.update({"Predicted Power": predPower})
+    except Exception:
+      print("Model not loaded")
     return out
   
   @staticmethod
@@ -108,6 +115,15 @@ class NUC:
     with open(modelPath, "rb") as file:
       model = load(file)
     return model
+  
+  # Highly custom at the moment, not portable
+  # This is because have to form a dataframe similar to the one the model is trained on
+  def predictPower(self, features):
+    if self.model == None:
+      raise Exception("NUC model not loaded")
+    else:
+      features = features.pop(["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"])
+      return self.model.predict(features)
 
   @staticmethod
   def toJson(obj, path=TESTPATH):
@@ -117,4 +133,5 @@ class NUC:
 
 nuc = NUC(modelOn=True)
 print("it worked")
+print(nuc.monitor)
 

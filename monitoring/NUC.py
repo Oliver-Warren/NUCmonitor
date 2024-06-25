@@ -1,13 +1,15 @@
 import time
 import json
 from PDU import PDU
+import skops.io as sio
 
-TESTPATH = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
+TESTPATH  = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
+MODELPATH = "/home/ubuntu/NUCmonitor/model/linReg.skops"
 
 class NUC:
 
   def __init__(self):
-    pass
+    self.model = self.loadModel()
 
   @staticmethod
   def readPduPower():
@@ -98,10 +100,20 @@ class NUC:
     out.update(ifDatarates)
     out.update(pduPower)
     return out
+  
+  @staticmethod
+  def loadModel(modelPath=MODELPATH):
+    unknown_types = sio.get_untrusted_types(file=modelPath)
+    model = sio.load(modelPath, trusted=unknown_types)
+    
+    return model
 
   @staticmethod
   def toJson(obj, path=TESTPATH):
     jsonObj = json.dumps(obj, indent=4)
     with open(path, "w") as file:
       file.write(jsonObj)
+
+nuc = NUC()
+print("it worked")
 

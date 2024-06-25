@@ -126,7 +126,7 @@ class NUC:
       # remove feautures that aren't used by the model
       for label in omitList:
         features.pop(label)
-      return self.model.predict(list(features.items))
+      return self.model.predict(list(features.items()))
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

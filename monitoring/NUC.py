@@ -123,9 +123,9 @@ class NUC:
       # raise Exception()
       pass
     else:
-      for feature in omitList:
-       features = features.pop(feature)
-      return self.model.predict(features)
+      for label in omitList:
+       features = features.pop(label)
+      return self.model.predict(features.values())
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

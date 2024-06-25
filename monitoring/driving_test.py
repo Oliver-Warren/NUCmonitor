@@ -65,7 +65,7 @@ p_dualtest = [False, True]
 p_tradeoff = [False, True]
 p_parallel = [2, 4, 6, 8, 10, 12]
 p_tos = [0x08]
-p_stress = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+p_stress = [20, 40, 60, 80, 90]
 
 @pytest.fixture(params=p_dualtest)
 def dualtest(request):

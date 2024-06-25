@@ -128,7 +128,7 @@ class NUC:
       for label in omitList:
         features.pop(label)
 
-      print(**features)
+      print(**features.str())
       arr = np.array(list(features.items()))
       print(arr)
       # return self.model.predict(arr)

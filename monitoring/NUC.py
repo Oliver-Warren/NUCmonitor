@@ -120,7 +120,8 @@ class NUC:
   # This is because have to form a dataframe similar to the one the model is trained on
   def predictPower(self, features):
     if self.model == None:
-      raise Exception()
+      # raise Exception()
+      pass
     else:
       features = features.pop(["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"])
       return self.model.predict(features)

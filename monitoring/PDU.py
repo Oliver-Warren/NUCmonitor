@@ -22,5 +22,6 @@ class PDU:
         client.connect(hostname=self.hostname, username=self.username, password=self.password)
         _, stdout, _ = client.exec_command("olReading " + self.outlet + " power")
         return float(stdout.readline().split()[3])
-      except: Exception
+      except Exception:
+        print("ssh to PDU failed, retrying")
             

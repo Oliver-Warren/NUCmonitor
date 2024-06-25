@@ -2,6 +2,7 @@ import time
 import json
 from PDU import PDU
 from pickle import load
+from sklearn.linear_model import LinearRegression
 
 TESTPATH  = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
 MODELPATH = "/home/ubuntu/NUCmonitor/model/linReg.pkl"

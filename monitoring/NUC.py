@@ -123,10 +123,10 @@ class NUC:
       # raise Exception()
       pass
     else:
+      # remove feautures that aren't used by the model
       for label in omitList:
-        print(features)
         features.pop(label)
-      return self.model.predict(features)
+      return self.model.predict(features.reshape(1, -1))
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

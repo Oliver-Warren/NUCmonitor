@@ -104,11 +104,11 @@ class NUC:
     out.update(pduPower)
 
     # model 
-    # try:
-    predPower = self.predictPower(out.copy())
-    out.update({"Predicted Power": predPower})
-    # except Exception:
-      # print("Model not loaded")
+    try:
+      predPower = self.predictPower(out.copy())
+      out.update({"Predicted Power": predPower})
+    except Exception:
+      print("Model not loaded")
     return out
   
   @staticmethod
@@ -121,15 +121,12 @@ class NUC:
   # This is because have to form a dataframe similar to the one the model is trained on
   def predictPower(self, features, omitList=["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX", "PDU power"]):
     if self.model == None:
-      # raise Exception()
-      pass
+      raise Exception()
     else:
       # remove feautures that aren't used by the model
       for label in omitList:
         features.pop(label)
-      arr = np.array([float(x) for x in features.values()]).reshape(1, -1)
-      print(arr)
-      return self.model.predict(np.array([float(x) for x in features.values()]).reshape(1, -1))
+      return float(self.model.predict(np.array([float(x) for x in features.values()]).reshape(1, -1)))
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

@@ -17,6 +17,10 @@ class PDU:
   def getOutletPower(self):
     client = paramiko.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    client.connect(hostname=self.hostname, username=self.username, password=self.password)
-    _, stdout, _ = client.exec_command("olReading " + self.outlet + " power")
-    return float(stdout.readline().split()[3])
+    while True:
+      try:
+        client.connect(hostname=self.hostname, username=self.username, password=self.password)
+        _, stdout, _ = client.exec_command("olReading " + self.outlet + " power")
+        return float(stdout.readline().split()[3])
+      except: Exception
+            

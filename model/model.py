@@ -46,7 +46,7 @@ def tryModels(X_train, X_test, y_train, y_test):
              "Linear Regression   "  : LinearRegression(),
              "Random Forest       "  : RandomForestRegressor(),
              "KNN                 "  : KNeighborsRegressor(n_neighbors=n_neighbors, weights="distance"),
-             "Logistic Regression "  : LogisticRegression(penalty="elasticnet")}
+             "Logistic Regression "  : LogisticRegression(penalty="l2")}
   for name, model in models.items():
     print(name)
     model.fit(X_train, y_train)

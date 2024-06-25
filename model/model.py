@@ -69,5 +69,5 @@ def makeLinReg(X, y):
 # script
 X, y, X_train, X_test, y_train, y_test = getData(pathLaptopUbuntu)
 # makeLinReg(X, y)
-tryModels()
+tryModels(X_train, X_test, y_train, y_test)
 

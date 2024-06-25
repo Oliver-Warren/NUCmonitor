@@ -60,7 +60,7 @@ def tryModels(X_train, X_test, y_train, y_test):
 # The model is trained on the ENTIRE dataset
 def makeLinReg(X, y):
   model = LinearRegression().fit(X, y)
-  onx = to_onnx(model, X)
+  onx = to_onnx(model, X.to_dict())
   with open("linReg.onnx", "wb") as file:
     file.write(onx.SerializeToString())
 

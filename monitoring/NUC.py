@@ -1,15 +1,16 @@
 import time
 import json
 from PDU import PDU
-import skops.io as sio
+from pickle import load
 
 TESTPATH  = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
-MODELPATH = "/home/ubuntu/NUCmonitor/model/linReg.skops"
+MODELPATH = "/home/ubuntu/NUCmonitor/model/linReg.pkl"
 
 class NUC:
 
-  def __init__(self):
-    self.model = self.loadModel()
+  def __init__(self, modelOn=False):
+    if modelOn:
+      self.model = self.loadModel()
 
   @staticmethod
   def readPduPower():
@@ -103,9 +104,8 @@ class NUC:
   
   @staticmethod
   def loadModel(modelPath=MODELPATH):
-    unknown_types = sio.get_untrusted_types(file=modelPath)
-    model = sio.load(modelPath, trusted=unknown_types)
-    
+    with open(modelPath, "rb") as file:
+      model = load(file)
     return model
 
   @staticmethod
@@ -114,6 +114,6 @@ class NUC:
     with open(path, "w") as file:
       file.write(jsonObj)
 
-nuc = NUC()
+nuc = NUC(modelOn=True)
 print("it worked")
 

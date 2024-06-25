@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import mean_squared_error
 from pathlib import Path
-from skops import io as sio
+from pickle import dump
 
 # paths to data
 pathLaptopUbuntu = "/home/ojdwa/NUCmonitor/data/"
@@ -62,8 +62,8 @@ def tryModels(X_train, X_test, y_train, y_test):
 # The model is trained on the ENTIRE dataset
 def makeLinReg(X, y):
   model = LinearRegression().fit(X, y)
-  obj = sio.dump(model, "linReg.skops")
-  print("Model Saved")
+  with open("linReg.pkl", "wb") as file:
+    dump(model, file, protocol=5)
 
 # script
 X, y, X_train, X_test, y_train, y_test = getData(pathLaptopVS)

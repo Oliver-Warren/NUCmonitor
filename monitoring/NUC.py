@@ -118,12 +118,13 @@ class NUC:
   
   # Highly custom at the moment, not portable
   # This is because have to form a dataframe similar to the one the model is trained on
-  def predictPower(self, features):
+  def predictPower(self, features, omitList=["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"]):
     if self.model == None:
       # raise Exception()
       pass
     else:
-      features = features.pop(["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"])
+      for feature in omitList:
+       features = features.pop(feature)
       return self.model.predict(features)
 
   @staticmethod

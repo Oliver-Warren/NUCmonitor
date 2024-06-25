@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import mean_squared_error
 from pathlib import Path
-import skops.io as sio
+from skops import io as sio
 
 # paths to data
 pathLaptopUbuntu = "/home/ojdwa/NUCmonitor/data/"

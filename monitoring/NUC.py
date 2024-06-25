@@ -119,7 +119,7 @@ class NUC:
   
   # Highly custom at the moment, not portable
   # This is because have to form a dataframe similar to the one the model is trained on
-  def predictPower(self, features, omitList=["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"]):
+  def predictPower(self, features, omitList=["lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX", "PDU power"]):
     if self.model == None:
       # raise Exception()
       pass
@@ -129,7 +129,7 @@ class NUC:
         features.pop(label)
       arr = np.array([float(x) for x in features.values()]).reshape(1, -1)
       print(arr)
-      # return self.model.predict(np.array([float(x) for x in features.values()]).reshape(1, -1))
+      return self.model.predict(np.array([float(x) for x in features.values()]).reshape(1, -1))
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

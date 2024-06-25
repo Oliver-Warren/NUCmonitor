@@ -103,11 +103,11 @@ class NUC:
     out.update(pduPower)
 
     # model 
-    try:
-      predPower = self.predictPower(out)
-      out.update({"Predicted Power": predPower})
-    except Exception:
-      print("Model not loaded")
+    # try:
+    predPower = self.predictPower(out)
+    out.update({"Predicted Power": predPower})
+    # except Exception:
+      # print("Model not loaded")
     return out
   
   @staticmethod

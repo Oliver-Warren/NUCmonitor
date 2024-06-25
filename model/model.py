@@ -61,12 +61,13 @@ def tryModels(X_train, X_test, y_train, y_test):
 # The model is trained on the ENTIRE dataset
 def makeLinReg(X, y):
   model = LinearRegression().fit(X, y)
-  with open("linReg.pkl", "wb") as file:
+  with open("linReg2.pkl", "wb") as file:
     dump(model, file, protocol=5)
 
 # script
 X, y, X_train, X_test, y_train, y_test = getData(pathLaptopVS)
 makeLinReg(X, y)
+tryModels(X_train, X_test, y_train, y_test)
 # tryModels(X_train, X_test, y_train, y_test)
 
 

@@ -124,7 +124,8 @@ class NUC:
       pass
     else:
       for label in omitList:
-       features = features.pop(label)
+        print(features)
+        features = features.pop(label)
       return self.model.predict(features.values())
 
   @staticmethod

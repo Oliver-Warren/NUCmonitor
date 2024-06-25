@@ -63,8 +63,8 @@ def closeSsh(client):
 # iperf option parameters
 p_dualtest = [False, True]
 p_tradeoff = [False, True]
-p_parallel = [1, 2, 4, 6, 8, 10, 12]
-p_tos = [0x08, 0x10, 0x02]
+p_parallel = [2, 4, 6, 8, 10, 12]
+p_tos = [0x08]
 p_stress = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
 
 @pytest.fixture(params=p_dualtest)

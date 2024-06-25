@@ -128,10 +128,7 @@ class NUC:
       for label in omitList:
         features.pop(label)
 
-      print(**features.str())
-      arr = np.array(list(features.items()))
-      print(arr)
-      # return self.model.predict(arr)
+      return self.model.predict(features.values().reshape(1, -1))
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

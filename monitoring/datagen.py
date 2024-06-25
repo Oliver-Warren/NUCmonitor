@@ -7,10 +7,9 @@ def gen(dirPath):
   print("Data generation for directory:", dirPath)
   os.makedirs(os.path.dirname(dirPath), exist_ok=True)
   i = 0
-  nuc = NUC()
+  nuc = NUC(modelOn=False)
   while True:
     stats = nuc.monitor()
-    fPath = dirPath + str(i) + ".json"
     nuc.toJson(stats, dirPath + str(i) + ".json")
     print("Saved:", i)
     i += 1

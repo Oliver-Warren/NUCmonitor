@@ -127,6 +127,8 @@ class NUC:
       # remove feautures that aren't used by the model
       for label in omitList:
         features.pop(label)
+
+      print(**features)
       arr = np.array(list(features.items()))
       print(arr)
       # return self.model.predict(arr)

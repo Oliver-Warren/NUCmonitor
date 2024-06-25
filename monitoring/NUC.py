@@ -106,7 +106,7 @@ class NUC:
     # model 
     try:
       predPower = self.predictPower(out.copy())
-      out.update({"Predicted Power": predPower})
+      out.update({"Predicted power": predPower})
     except Exception:
       print("Model not loaded")
     return out
@@ -135,6 +135,5 @@ class NUC:
       file.write(jsonObj)
 
 nuc = NUC(modelOn=True)
-print("it worked")
 print(nuc.monitor())
 

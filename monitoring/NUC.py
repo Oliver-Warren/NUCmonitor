@@ -105,7 +105,7 @@ class NUC:
 
     # model 
     # try:
-    predPower = self.predictPower(out)
+    predPower = self.predictPower(out.copy())
     out.update({"Predicted Power": predPower})
     # except Exception:
       # print("Model not loaded")

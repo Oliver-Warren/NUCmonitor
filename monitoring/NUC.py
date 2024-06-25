@@ -3,6 +3,7 @@ import json
 from PDU import PDU
 from pickle import load
 from sklearn.linear_model import LinearRegression
+import numpy as np
 
 TESTPATH  = "/home/ubuntu/NUCmonitor/nucMonitor/test.json"
 MODELPATH = "/home/ubuntu/NUCmonitor/model/linReg.pkl"
@@ -126,7 +127,7 @@ class NUC:
       # remove feautures that aren't used by the model
       for label in omitList:
         features.pop(label)
-      return self.model.predict(list(features.items()))
+      return self.model.predict(np.array(list(features.items())))
 
   @staticmethod
   def toJson(obj, path=TESTPATH):

@@ -133,5 +133,5 @@ class NUC:
 
 nuc = NUC(modelOn=True)
 print("it worked")
-print(nuc.monitor)
+print(nuc.monitor())
 

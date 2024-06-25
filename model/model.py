@@ -9,7 +9,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.kernel_ridge import KernelRidge
 from sklearn.metrics import mean_squared_error
 from pathlib import Path
-from skl2onnx import to_onnx
+import skops.io as sio
 
 # paths to data
 pathLaptopUbuntu = "/home/ojdwa/NUCmonitor/data/"
@@ -62,12 +62,12 @@ def tryModels(X_train, X_test, y_train, y_test):
 # The model is trained on the ENTIRE dataset
 def makeLinReg(X, y):
   model = LinearRegression().fit(X, y)
-  onx = to_onnx(model, X.to_dict())
-  with open("linReg.onnx", "wb") as file:
-    file.write(onx.SerializeToString())
+  obj = sio.dump(model, "linReg.skops")
+  print("Model Saved")
 
 # script
 X, y, X_train, X_test, y_train, y_test = getData(pathLaptopUbuntu)
-# makeLinReg(X, y)
-tryModels(X_train, X_test, y_train, y_test)
+makeLinReg(X, y)
+# tryModels(X_train, X_test, y_train, y_test)
+
 

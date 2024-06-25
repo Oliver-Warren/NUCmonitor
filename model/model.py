@@ -1,6 +1,7 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LogisticRegression
 from sklearn.neural_network import MLPRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
@@ -39,12 +40,13 @@ def getData(path):
 
 # try some different models
 def tryModels(X_train, X_test, y_train, y_test):
-  models = { "Friedman Tree     "  : DecisionTreeRegressor(ccp_alpha=1, criterion="friedman_mse", splitter="best"),
-             "MLP Regressor     "  : MLPRegressor(hidden_layer_sizes=[100, 50], activation="logistic", learning_rate="adaptive", early_stopping=True),
-             "Kernel Ridge      "  : KernelRidge(alpha=0.8),
-             "Linear Regression "  : LinearRegression(),
-             "Random Forest     "  : RandomForestRegressor(),
-             "KNN               "  : KNeighborsRegressor(n_neighbors=n_neighbors, weights="distance") }
+  models = { "Friedman Tree       "  : DecisionTreeRegressor(ccp_alpha=1, criterion="friedman_mse", splitter="best"),
+             "MLP Regressor       "  : MLPRegressor(hidden_layer_sizes=[100, 50], activation="logistic", learning_rate="adaptive", early_stopping=True),
+             "Kernel Ridge        "  : KernelRidge(alpha=0.8),
+             "Linear Regression   "  : LinearRegression(),
+             "Random Forest       "  : RandomForestRegressor(),
+             "KNN                 "  : KNeighborsRegressor(n_neighbors=n_neighbors, weights="distance"),
+             "Logistic Regression "  : LogisticRegression(penalty="elasticnet")}
   for name, model in models.items():
     print(name)
     model.fit(X_train, y_train)
@@ -65,7 +67,7 @@ def makeLinReg(X, y):
     file.write(onx.SerializeToString())
 
 # script
-X, y, _, _, _, _ = getData(pathLaptopUbuntu)
-makeLinReg(X, y)
-print("saved model")
+X, y, X_train, X_test, y_train, y_test = getData(pathLaptopUbuntu)
+# makeLinReg(X, y)
+tryModels()
 

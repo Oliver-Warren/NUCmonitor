@@ -27,6 +27,7 @@ def loadData(path):
 def getTargets(data):
   return data["PDU power"]
 
+# dropping features which dont change
 def getFeatures(data):
   return data.drop(["PDU power", "lo RX", "lo TX", "wlp2s0 RX", "wlp2s0 TX"], axis=1)
   

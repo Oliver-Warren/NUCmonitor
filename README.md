@@ -19,6 +19,8 @@ Deployment of the solution involves three stages:
 3. Deploy model on the NUC. Trained models can then be stored on the NUC and used to estimate power consumption for uses such as Real-time Intelligent Control.
 
 ### Data generation
+The NUC is stress tested by "abusing" pytest on a remote machine, calling stress-ng and iperf over a rnage of different parameters.
+
 1. Interface loading. Interface loading is achieved by hosting an iperf server on the DUT, and running the script provided under /NUCmonitor/clientSide/monitoringTool_test.py on an alternative network device to create a range of iperf traffic, including duplex and parallel connections.
 2. CPU loading. CPU loading is achieved using the stress-ng tools for Linux systems.
 3. Recording. While either or both of the interface and CPU loading processes are underway. The DUT must monitor and record datapoints containing all above model features, as well as recording system-power consumption either using a PDU or by manual observation and entry using data available for a battery (current method). Features are calculated and saved using methods defined in the file NUCmonitor/dutSide/monitoringTool.py, specifically the function 'monitor()'. Also included in this library are individual methods for performing each of the required reads, and to output statistics as a json portable object.
